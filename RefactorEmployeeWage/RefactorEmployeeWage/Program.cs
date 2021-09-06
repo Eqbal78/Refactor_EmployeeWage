@@ -8,12 +8,16 @@ namespace RefactorEmployeeWage
         static int Part_Time = 2;
         static int Emp_rate_per_Hrs = 20;
         static int empHrs, empWage;
-        static int No_Of_Working_Days = 20;
+        static int Max_Working_Days = 20;
+        static int Max_Working_Hrs = 100;
         static int totalEmpWage = 0;
+        static int workingHrs = 0;
+        static int No_of_Working_Days = 0;
         static int Attendance()
         {
-            for (int i = 0; i < No_Of_Working_Days; i++)
+            while (No_of_Working_Days <= Max_Working_Days && workingHrs <= Max_Working_Hrs)
             {
+                No_of_Working_Days++;
                 Random r = new Random();
                 int check = r.Next(1, 4);
                 switch (check)
@@ -29,16 +33,18 @@ namespace RefactorEmployeeWage
                         break;
                 }
 
-                empWage = empHrs * Emp_rate_per_Hrs;
-                totalEmpWage += empWage;
+                workingHrs += empHrs;
+                Console.WriteLine("Days: " + workingHrs + " Emp Hrs: " + empHrs);
+                
             }
-            return totalEmpWage;
+            empWage = empHrs * Emp_rate_per_Hrs;
+            return empWage;
         }
         static void Main(string[] args)
         {
             Attendance();
-            //Console.WriteLine("Employee Wages: " + empWage);
-            Console.WriteLine("Total Monthly Emp Wages: " + totalEmpWage);
+            Console.WriteLine("Employee Wages: " + empWage);
+            
         }
     }
 }
