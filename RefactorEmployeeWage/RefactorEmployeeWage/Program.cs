@@ -12,17 +12,18 @@ namespace RefactorEmployeeWage
         {
             Random r = new Random();
             int check = r.Next(1, 4);
-            if (check == Full_Time)
+            switch (check)
             {
-                empHrs = 8;
+                case 1:
+                    empHrs = 8;
+                    break;
+                case 2:
+                    empHrs = 4;
+                    break;
+                default:
+                    empHrs = 0;
+                    break;
             }
-            else if (check == Part_Time)
-            {
-                empHrs = 4;
-            }
-            else
-                empHrs = 0;
-
             empWage = empHrs * Emp_rate_per_Hrs;
 
             return empWage;
