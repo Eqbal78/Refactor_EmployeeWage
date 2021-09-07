@@ -1,20 +1,33 @@
 ﻿using System;
 
-namespace RefactorEmployeeWage
+namespace practicEmployeeWage
 {
-    class Program
+    public interface IEmployee
     {
-        static int Full_Time = 1;
-        static int Part_Time = 2;
-        static int Emp_rate_per_Hrs = 20;
-        static int empHrs, empWage;
-        static int Max_Working_Days = 20;
-        static int Max_Working_Hrs = 100;
-        static int totalEmpWage = 0;
-        static int workingHrs = 0;
-        static int No_of_Working_Days = 0;
-        static int Attendance()
+        public void ComputeEmpWage();
+    }
+
+    public class EmpWageBuilderObject : IEmployee
+    {
+        public const int Full_Time = 1;
+        public const int Part_Time = 2;
+        private int Emp_rate_per_Hrs;
+
+        private int Max_Working_Days;
+        private int Max_Working_Hrs;
+        private int No_of_Working_Days;
+
+        public EmpWageBuilderObject(int Emp_rate_per_Hrs, int Max_Working_Days, int Max_Working_Hrs, int No_of_Working_Days)
         {
+            this.Emp_rate_per_Hrs = Emp_rate_per_Hrs;
+            this.Max_Working_Days = Max_Working_Days;
+            this.Max_Working_Hrs = Max_Working_Hrs;
+            this.No_of_Working_Days = No_of_Working_Days;
+        }
+
+        public void ComputeEmpWage()
+        {
+            int empHrs = 0, empWage, workingHrs = 0; ;
             while (No_of_Working_Days <= Max_Working_Days && workingHrs <= Max_Working_Hrs)
             {
                 No_of_Working_Days++;
@@ -35,16 +48,20 @@ namespace RefactorEmployeeWage
 
                 workingHrs += empHrs;
                 Console.WriteLine("Days: " + workingHrs + " Emp Hrs: " + empHrs);
-                
             }
             empWage = empHrs * Emp_rate_per_Hrs;
-            return empWage;
+            Console.WriteLine("Employee Wages: " + empWage);
         }
+    }
+
+
+    class Program
+    {
         static void Main(string[] args)
         {
-            Attendance();
-            Console.WriteLine("Employee Wages: " + empWage);
-            
+            EmpWageBuilderObject emp = new EmpWageBuilderObject(20, 20, 100, 0);
+            emp.ComputeEmpWage();
+
         }
     }
 }
