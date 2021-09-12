@@ -5,58 +5,64 @@ using System.Text;
 namespace RefactorEmployeeWage
 {
    
-    public class EmpWageBuilderObject
+    class EmpWageBuilderObject
     {
-        // Declare Constant
-        public const int Full_Time = 1;
-        public const int Part_Time = 2;
+        //Initializing Constant Values
+        public const int IS_PART_TIME = 1;
+        public const int IS_FULL_TIME = 2;
 
-        string company;
-        int Emp_rate_per_Hrs;
-        int Max_Working_Hrs;
-        int Max_Working_Days;
-        public int TotalempWage;
+        public int numOfCompany = 0;
+        //creating an array
+        public compute[] ComputeArray;
 
-        //Create a Constructor
-        public EmpWageBuilderObject(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days)
+        public EmpWageBuilderObject()
         {
-            this.company = company;
-            this.Emp_rate_per_Hrs = Emp_rate_per_Hrs;
-            this.Max_Working_Hrs = Max_Working_Hrs;
-            this.Max_Working_Days = Max_Working_Days;
+            //giving count
+            this.ComputeArray = new compute[5];
         }
-       
-        // Create a Method
-        public void ComputeEmpWage()
+        public void addCompanyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
         {
-            // Variable declaration
-            int No_of_Working_Days = 0;
-            int empHrs = 0;
-            int workingHrs = 0;
-            while (No_of_Working_Days < Max_Working_Days && workingHrs < Max_Working_Hrs)
+            //every index is object
+            ComputeArray[this.numOfCompany] = new compute(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
+            numOfCompany++;//adding count of companys
+        }
+        public void computeEmpWage()
+        {
+            for (int i = 0; i < numOfCompany; i++)
             {
-                No_of_Working_Days++;
-                Random r = new Random();
-                int check = r.Next(1, 4);
-                switch (check)
+                ComputeArray[i].setTotalEmpWage(this.computeEmpWage(this.ComputeArray[i]));
+                this.ComputeArray[i].allDetails();
+            }
+        }
+        private int computeEmpWage(compute companyEmpWage)
+        {
+            //Variables
+            int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+            //Computation
+            while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays)
+            {
+
+                Random random = new Random();
+                int empCheck = random.Next(0, 3);
+                totalWorkingDays++;
+                //int empCheck = 1;
+                switch (empCheck)
                 {
-                    case 1:
-                        empHrs = 8;
-                        break;
-                    case 2:
+                    case IS_PART_TIME:
                         empHrs = 4;
+                        break;
+                    case IS_FULL_TIME:
+                        empHrs = 8;
                         break;
                     default:
                         empHrs = 0;
                         break;
                 }
-
-                workingHrs += empHrs;
-                Console.WriteLine("Days: " + No_of_Working_Days + " Emp Hrs: " + empHrs);
+                totalEmpHrs += empHrs;
+                Console.WriteLine("Day#: " + totalWorkingDays + "Emp Hrs : " + empHrs);
             }
-            //Calculate Total Employee Wage
-            TotalempWage = empHrs * Emp_rate_per_Hrs;
-            Console.WriteLine("Total Emp Wage For Company: " + company + " is " + TotalempWage);
+            return totalEmpHrs * companyEmpWage.empRatePerHour;
+            //Console.WriteLine("Total Emp Wage for company : " + company + " is: " + totalEmpWage);
         }
 
     }

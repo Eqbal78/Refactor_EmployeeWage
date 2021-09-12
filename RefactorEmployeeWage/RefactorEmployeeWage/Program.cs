@@ -7,12 +7,10 @@ namespace RefactorEmployeeWage
         static void Main(string[] args)
         {
             
-            EmpWageBuilderObject dmart = new EmpWageBuilderObject("Dmart",20,50,10);
-            EmpWageBuilderObject flipkart = new EmpWageBuilderObject("Flipkart", 10, 60, 20);
-            dmart.ComputeEmpWage();
-            //Console.WriteLine(dmart.ToString());
-            flipkart.ComputeEmpWage();
-            //Console.WriteLine(flipkart.ToString());
+            EmpWageBuilderObject obj = new EmpWageBuilderObject();
+            obj.addCompanyEmpWage("Airtel", 20, 6, 100);
+            obj.addCompanyEmpWage("Idea", 20, 5, 100);
+            obj.computeEmpWage();
 
         }
     }
