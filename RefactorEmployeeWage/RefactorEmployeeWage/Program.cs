@@ -6,11 +6,13 @@ namespace RefactorEmployeeWage
     {
         static void Main(string[] args)
         {
-            EmpWageBuilderObject emp = new EmpWageBuilderObject();
-
-            emp.ComputeEmpWage("Dmart", 20, 100, 10);
-            emp.ComputeEmpWage("Relience", 10, 20, 4);
-
+            
+            EmpWageBuilderObject dmart = new EmpWageBuilderObject("Dmart",20,50,10);
+            EmpWageBuilderObject flipkart = new EmpWageBuilderObject("Flipkart", 10, 60, 20);
+            dmart.ComputeEmpWage();
+            //Console.WriteLine(dmart.ToString());
+            flipkart.ComputeEmpWage();
+            //Console.WriteLine(flipkart.ToString());
 
         }
     }

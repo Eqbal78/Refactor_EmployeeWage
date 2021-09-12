@@ -4,23 +4,36 @@ using System.Text;
 
 namespace RefactorEmployeeWage
 {
-
-    public interface IEmployee
-    {
-         void ComputeEmpWage(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days);
-    }
    
     public class EmpWageBuilderObject
     {
+        // Declare Constant
         public const int Full_Time = 1;
         public const int Part_Time = 2;
-       
-        static int No_of_Working_Days=0;
 
-        public void ComputeEmpWage(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days)
+        string company;
+        int Emp_rate_per_Hrs;
+        int Max_Working_Hrs;
+        int Max_Working_Days;
+        public int TotalempWage;
+
+        //Create a Constructor
+        public EmpWageBuilderObject(string company, int Emp_rate_per_Hrs, int Max_Working_Hrs, int Max_Working_Days)
         {
-            int empHrs = 0, empWage, workingHrs = 0; ;
-            while (No_of_Working_Days <= Max_Working_Days && workingHrs < Max_Working_Hrs)
+            this.company = company;
+            this.Emp_rate_per_Hrs = Emp_rate_per_Hrs;
+            this.Max_Working_Hrs = Max_Working_Hrs;
+            this.Max_Working_Days = Max_Working_Days;
+        }
+       
+        // Create a Method
+        public void ComputeEmpWage()
+        {
+            // Variable declaration
+            int No_of_Working_Days = 0;
+            int empHrs = 0;
+            int workingHrs = 0;
+            while (No_of_Working_Days < Max_Working_Days && workingHrs < Max_Working_Hrs)
             {
                 No_of_Working_Days++;
                 Random r = new Random();
@@ -39,11 +52,13 @@ namespace RefactorEmployeeWage
                 }
 
                 workingHrs += empHrs;
-                Console.WriteLine("Days: " + workingHrs + " Emp Hrs: " + empHrs);
+                Console.WriteLine("Days: " + No_of_Working_Days + " Emp Hrs: " + empHrs);
             }
-            empWage = empHrs * Emp_rate_per_Hrs;
-            Console.WriteLine("Total Emp Wage For Company: " + company + " is " + empWage);
+            //Calculate Total Employee Wage
+            TotalempWage = empHrs * Emp_rate_per_Hrs;
+            Console.WriteLine("Total Emp Wage For Company: " + company + " is " + TotalempWage);
         }
+
     }
     
 }
