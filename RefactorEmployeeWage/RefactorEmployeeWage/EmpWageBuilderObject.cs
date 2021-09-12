@@ -44,7 +44,9 @@ namespace RefactorEmployeeWage
         public int computeEmpWage(compute companyEmpWage)
         {
             //Variables
-            int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
+            int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0, empWage = 0;
+
+            Console.WriteLine("Company Name : " + companyEmpWage.company);
             //Computation
             while (totalEmpHrs <= companyEmpWage.maxHoursPerMonth && totalWorkingDays < companyEmpWage.numOfWorkingDays)
             {
@@ -52,7 +54,7 @@ namespace RefactorEmployeeWage
                 Random random = new Random();
                 int empCheck = random.Next(0, 3);
                 totalWorkingDays++;
-                //int empCheck = 1;
+  
                 switch (empCheck)
                 {
                     case IS_PART_TIME:
@@ -66,10 +68,11 @@ namespace RefactorEmployeeWage
                         break;
                 }
                 totalEmpHrs += empHrs;
-                Console.WriteLine("Day: " + totalWorkingDays + " Emp Hrs : " + empHrs);
+                empWage = empHrs * companyEmpWage.empRatePerHour;
+                Console.WriteLine("Day: " + totalWorkingDays + " Emp Hrs : " + empHrs + " Total Wage Per Day " + empWage);
             }
             return totalEmpHrs * companyEmpWage.empRatePerHour;
-            //Console.WriteLine("Total Emp Wage for company : " + company + " is: " + totalEmpWage);
+           
         }
 
     }

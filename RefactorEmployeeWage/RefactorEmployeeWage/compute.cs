@@ -27,7 +27,7 @@ namespace RefactorEmployeeWage
 
         public void allDetails()
         {
-            Console.WriteLine("Company name : " + this.company);
+            
             Console.WriteLine("Total Emp Wage for company  " + this.company + " is : " + this.totalEmpWage);
             Console.WriteLine("--------------------------------");
         }
