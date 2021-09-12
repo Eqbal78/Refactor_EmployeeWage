@@ -4,8 +4,14 @@ using System.Text;
 
 namespace RefactorEmployeeWage
 {
-   
-    class EmpWageBuilderObject
+    //Decleare Interface
+    public interface IEmpWageBuilderArray
+    {
+        void addCompanyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth);
+        public void computeEmpWage();
+    }
+
+    class EmpWageBuilderObject : IEmpWageBuilderArray
     {
         //Initializing Constant Values
         public const int IS_PART_TIME = 1;
@@ -34,7 +40,7 @@ namespace RefactorEmployeeWage
                 this.ComputeArray[i].allDetails();
             }
         }
-        private int computeEmpWage(compute companyEmpWage)
+        public int computeEmpWage(compute companyEmpWage)
         {
             //Variables
             int empHrs = 0, totalEmpHrs = 0, totalWorkingDays = 0;
@@ -59,7 +65,7 @@ namespace RefactorEmployeeWage
                         break;
                 }
                 totalEmpHrs += empHrs;
-                Console.WriteLine("Day#: " + totalWorkingDays + "Emp Hrs : " + empHrs);
+                Console.WriteLine("Day: " + totalWorkingDays + " Emp Hrs : " + empHrs);
             }
             return totalEmpHrs * companyEmpWage.empRatePerHour;
             //Console.WriteLine("Total Emp Wage for company : " + company + " is: " + totalEmpWage);
