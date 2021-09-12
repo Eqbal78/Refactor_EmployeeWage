@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Collections;
 using System.Text;
 
 namespace RefactorEmployeeWage
@@ -17,27 +17,28 @@ namespace RefactorEmployeeWage
         public const int IS_PART_TIME = 1;
         public const int IS_FULL_TIME = 2;
 
-        public int numOfCompany = 0;
-        //creating an array
-        public compute[] ComputeArray;
+        //creating an array list
+        public ArrayList ComputeArray;
 
         public EmpWageBuilderObject()
         {
-            //giving count
-            this.ComputeArray = new compute[5];
+            
+            this.ComputeArray = new ArrayList();
         }
         public void addCompanyEmpWage(string company, int empRatePerHour, int numOfWorkingDays, int maxHoursPerMonth)
         {
-            //every index is object
-            ComputeArray[this.numOfCompany] = new compute(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
-            numOfCompany++;//adding count of companys
+            //creating object for CompanyEmpWage class
+            compute companyEmp = new compute(company, empRatePerHour, numOfWorkingDays, maxHoursPerMonth);
+            //adding the object to list
+            this.ComputeArray.Add(companyEmp);
         }
         public void computeEmpWage()
         {
-            for (int i = 0; i < numOfCompany; i++)
+            //check availability
+            foreach (compute wage in ComputeArray)
             {
-                ComputeArray[i].setTotalEmpWage(this.computeEmpWage(this.ComputeArray[i]));
-                this.ComputeArray[i].allDetails();
+                wage.setTotalEmpWage(this.computeEmpWage(wage));
+                wage.allDetails();
             }
         }
         public int computeEmpWage(compute companyEmpWage)
